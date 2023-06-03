@@ -60,13 +60,13 @@ public class IdentityController {
      * @return
      */
     @GetMapping("/validateToken")
-    public String validate(/*@RequestHeader(HttpHeaders.AUTHORIZATION) String token*/) {
+    public String validate(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
        // jwtService.validateToken1(token.substring(7));
+
         //Token validation will be done during filter
-        //log.info("{}", token);
-        return "Success";
-        /*token = token.substring(7);
-        return jwtService.extractUsernameFromToken(token);*/
+        //return "Success";
+        token = token.substring(7);
+        return jwtService.extractUsernameFromToken(token);
     }
 
 }

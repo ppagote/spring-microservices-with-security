@@ -1,0 +1,418 @@
+{
+	"info": {
+		"_postman_id": "914b8949-dd18-4f68-a03b-2048d5574574",
+		"name": "Microservices-with-security",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3384826"
+	},
+	"item": [
+		{
+			"name": "Gateway-Service",
+			"item": [
+				{
+					"name": "Test App Service",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/app/home",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"app",
+								"home"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test Restaurant Service",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/restaurant/home",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"restaurant",
+								"home"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Restaurant Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlJPTEVfVVNFUiIsIm5hbWUiOiJEaGFuYXNocmkiLCJlbWFpbElkIjoiZC5nQGdtYWlsLmNvbSIsInN1YiI6ImRoYW5hIiwiaWF0IjoxNjg1NzkxNDkzLCJleHAiOjE2ODU3OTMyOTN9.ez7gKmfogh8Z_WRDqUlml4pBZBObTH60bbIdaq3eVSc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/restaurant/orders/35fds631",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"restaurant",
+								"orders",
+								"35fds631"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get App Order Status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlJPTEVfVVNFUiIsIm5hbWUiOiJEaGFuYXNocmkiLCJlbWFpbElkIjoiZC5nQGdtYWlsLmNvbSIsInN1YiI6ImRoYW5hIiwiaWF0IjoxNjg1NzkxNDkzLCJleHAiOjE2ODU3OTMyOTN9.ez7gKmfogh8Z_WRDqUlml4pBZBObTH60bbIdaq3eVSc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/app/35fds631",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"app",
+								"35fds631"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"dhana\",\r\n    \"name\": \"Dhanashri\",\r\n    \"password\": \"dhana\",\r\n    \"emailId\": \"d.g@gmail.com\",\r\n    \"roles\": \"ROLE_USER\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8083/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch token of registered user",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"dhana\",\r\n    \"name\": \"Dhanashri\",\r\n    \"password\": \"dhana\",\r\n    \"emailId\": \"d.g@gmail.com\",\r\n    \"roles\": \"ROLE_USER\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8083/auth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"auth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlJPTEVfVVNFUiIsIm5hbWUiOiJEaGFuYXNocmkiLCJlbWFpbElkIjoiZC5nQGdtYWlsLmNvbSIsInN1YiI6ImRoYW5hIiwiaWF0IjoxNjg1NzkxNDkzLCJleHAiOjE2ODU3OTMyOTN9.ez7gKmfogh8Z_WRDqUlml4pBZBObTH60bbIdaq3eVSc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/auth/validateToken",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"auth",
+								"validateToken"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "App-Service",
+			"item": [
+				{
+					"name": "Test App Service",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/app/home",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"app",
+								"home"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get App Order Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/app/35fds631",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"app",
+								"35fds631"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Restaurant-Service",
+			"item": [
+				{
+					"name": "Test Restaurant Service",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/restaurant/home",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"restaurant",
+								"home"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Restaurant Order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/restaurant/orders/35fds631",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"restaurant",
+								"orders",
+								"35fds631"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Identity-Service",
+			"item": [
+				{
+					"name": "Register User",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"pagopra\",\r\n    \"name\": \"Pranav\",\r\n    \"password\": \"pranav\",\r\n    \"emailId\": \"p.p@gmail.com\",\r\n    \"roles\": \"ROLE_ADMIN\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8084/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch token of registered user",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"pagopra\",\r\n    \"name\": \"Pranav\",\r\n    \"password\": \"pranav\",\r\n    \"emailId\": \"p.p@gmail.com\",\r\n    \"roles\": \"ROLE_ADMIN\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8084/auth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"auth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlJPTEVfQURNSU4iLCJuYW1lIjoiUHJhbmF2IiwiZW1haWxJZCI6InAucEBnbWFpbC5jb20iLCJzdWIiOiJwYWdvcHJhIiwiaWF0IjoxNjg1NzI4MDQ3LCJleHAiOjE2ODU3Mjk4NDd9.3igk_AJWKITDBKh3QW6f1jwjOOr-ONqyU81-pT3Ph5E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8084/auth/validateToken?token=eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlJPTEVfQURNSU4iLCJuYW1lIjoiUHJhbmF2IiwiZW1haWxJZCI6InAucEBnbWFpbC5jb20iLCJzdWIiOiJwYWdvcHJhIiwiaWF0IjoxNjg1NzI4MDQ3LCJleHAiOjE2ODU3Mjk4NDd9.3igk_AJWKITDBKh3QW6f1jwjOOr-ONqyU81-pT3Ph5E",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"auth",
+								"validateToken"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlJPTEVfQURNSU4iLCJuYW1lIjoiUHJhbmF2IiwiZW1haWxJZCI6InAucEBnbWFpbC5jb20iLCJzdWIiOiJwYWdvcHJhIiwiaWF0IjoxNjg1NzI4MDQ3LCJleHAiOjE2ODU3Mjk4NDd9.3igk_AJWKITDBKh3QW6f1jwjOOr-ONqyU81-pT3Ph5E"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
