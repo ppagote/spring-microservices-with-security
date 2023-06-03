@@ -17,6 +17,7 @@ public class IdentityService {
 
     /**
      * Creates a new user in the db by encoding the password.
+     *
      * @param userInfo
      * @return
      */

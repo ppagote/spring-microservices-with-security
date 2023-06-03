@@ -1,14 +1,13 @@
 package org.pranav.gatewayservice.filter;
 
 import lombok.extern.slf4j.Slf4j;
-import org.pranav.gatewayservice.client.IdentityClient;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
-import org.springframework.http.*;
-import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -19,13 +18,11 @@ import java.util.Objects;
 @Slf4j
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
 
-    private final IdentityClient identityClient;
-    private final RestTemplate restTemplate;
+    private final WebClient webClient;
 
-    public AuthenticationFilter(IdentityClient identityClient, RestTemplate restTemplate) {
+    public AuthenticationFilter(WebClient webClient) {
         super(Config.class);
-        this.identityClient = identityClient;
-        this.restTemplate = restTemplate;
+        this.webClient = webClient;
     }
 
     private Mono<Void> onError(ServerWebExchange exchange, String err, HttpStatus httpStatus) {
@@ -37,7 +34,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 
     @Override
     public GatewayFilter apply(Config config) {
-        return (((exchange, chain) -> {
+        return (exchange, chain) -> {
             if (!Arrays.asList("/app/home", "/restaurant/home", "/auth/home", "/auth/register", "/auth/token", "/eureka")
                     .contains(exchange.getRequest().getURI().getPath())) {
                 //header contains token or not
@@ -48,39 +45,29 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                 String authHeader = Objects.requireNonNull(exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION))
                         .get(0);
                 if (authHeader != null && authHeader.startsWith("Bearer ")) {
-                    try {
-                        HttpHeaders headers = new HttpHeaders();
-                        headers.set(HttpHeaders.AUTHORIZATION, authHeader);
-                        headers.setContentType(MediaType.APPLICATION_JSON);
 
-                        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-                        ResponseEntity<String> response = restTemplate.exchange(
-                                "http://localhost:8084/auth/validateToken",
-                                HttpMethod.GET, requestEntity, String.class, 1);
-                        String username = response.getBody();
-                        log.info(username);
-
-                        // String username = identityClient.validate();
-
-                        //TO pass the name of the user in every call. Fetch the username from token
-                        ServerHttpRequest loggedInUser = exchange.getRequest()
-                                .mutate()
-                                .header("loggedInUser", username)
-                                .build();
-                        return chain.filter(exchange.mutate().request(loggedInUser).build());
-                    } catch (Exception e) {
-                        return this.onError(exchange, "Invalid Authorization header", HttpStatus.UNAUTHORIZED);
-                    }
+                    return webClient.get()
+                            .uri("/auth/validateToken")
+                            .header(HttpHeaders.AUTHORIZATION, authHeader)
+                            .retrieve().bodyToMono(String.class)
+                            .map(response -> {
+                                exchange.getRequest()
+                                        .mutate()
+                                        .header("loggedInUser", response);
+                                return exchange;
+                            })
+                            .flatMap(chain::filter)
+                            .onErrorResume(e ->
+                                    this.onError(exchange, "Invalid Authorization header", HttpStatus.UNAUTHORIZED)
+                            );
                 }
-
             }
 
             return chain.filter(exchange);
-        }));
+        };
 
     }
 
     public static class Config {
-
     }
 }

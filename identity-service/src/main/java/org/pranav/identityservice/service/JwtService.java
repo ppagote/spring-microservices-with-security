@@ -6,7 +6,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.pranav.identityservice.entity.UserInfo;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -63,12 +62,9 @@ public class JwtService {
     }
 
 
-    public boolean  validateToken(String token, String inputUsername) {
+    public boolean validateToken(String token, String inputUsername) {
         final String username = extractUsernameFromToken(token);
         return (username.equals(inputUsername) && !isTokenExpired(token));
-    }
-    public void validateToken1(final String token) {
-        Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token);
     }
 
     public String extractUsernameFromToken(String token) {

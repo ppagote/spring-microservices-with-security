@@ -14,8 +14,9 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 public class AppConfig {
 
     private final LoadBalancedExchangeFilterFunction filterFunction;
+
     @Bean
-    public WebClient client(){
+    public WebClient client() {
         return WebClient.builder()
                 .baseUrl("http://RESTAURANT-SERVICE")
                 .filter(filterFunction)
@@ -23,9 +24,9 @@ public class AppConfig {
     }
 
     @Bean
-    public RestaurantClient restaurantClient(){
+    public RestaurantClient restaurantClient() {
         HttpServiceProxyFactory httpServiceProxyFactory
-                 = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(client()))
+                = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(client()))
                 .build();
 
         return httpServiceProxyFactory.createClient(RestaurantClient.class);
