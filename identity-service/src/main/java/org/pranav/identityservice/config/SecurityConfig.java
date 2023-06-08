@@ -64,7 +64,7 @@ public class SecurityConfig {
         return security.csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/app/home", "/restaurant/home", "/auth/register", "/auth/token", "/eureka",
-                        "/auth/home").permitAll()
+                        "/auth/home", "auth/refreshToken").permitAll()
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/app/**", "/restaurant/**", "/auth/**").authenticated()

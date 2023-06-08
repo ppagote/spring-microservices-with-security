@@ -209,6 +209,41 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refreshTokenId\": \"pagopra\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8083/auth/refreshToken",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"auth",
+								"refreshToken"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -342,6 +377,41 @@
 					"response": []
 				},
 				{
+					"name": "Create Refresh Token",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refreshTokenId\": \"9549a953-1b29-4d8d-978e-d3475af91e01\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8084/auth/refreshToken",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"auth",
+								"refreshToken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Fetch token of registered user",
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {
@@ -384,7 +454,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlJPTEVfQURNSU4iLCJuYW1lIjoiUHJhbmF2IiwiZW1haWxJZCI6InAucEBnbWFpbC5jb20iLCJzdWIiOiJwYWdvcHJhIiwiaWF0IjoxNjg1NzkxNTQ4LCJleHAiOjE2ODU3OTMzNDh9.KyePC2Xg2VdAT35vU2qEgqNX6_1NvNxfr0-FDN2VM68",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlJPTEVfQURNSU4iLCJuYW1lIjoiUHJhbmF2IiwiZW1haWxJZCI6InAucEBnbWFpbC5jb20iLCJzdWIiOiJwYWdvcHJhIiwiaWF0IjoxNjg2MjUyNTAwLCJleHAiOjE2ODYyNTI1NjB9.X9GP3o1nfv8PuFgAml76HdVK67ED0iry0Qz_ZnGQtZ4",
 									"type": "string"
 								}
 							]
